@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo/components/modalUpdateStatus/modalUpdateStatus.dart';
 import 'package:todo/components/todo/todo.dart';
 import 'package:todo/helpers/dialog.dart';
 import 'package:todo/models/todo.dart';
@@ -42,6 +43,31 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  edit(todo) {
+    showDialog<void>(
+      context: context,    
+      builder: (BuildContext context) {
+        return WModalUpdateStatusState(
+          todo: todo,
+          update: this.updateStatus
+        );
+      },
+    );
+  }
+
+  updateStatus(id, status) async {
+    Navigator.of(context).pop();
+    final TodoModel todo = await TodoService.updateStatus(id, status);
+    setState(() {
+      this.listTodo.forEach((e) { 
+        if (e.id == todo.id) {
+          e.status = todo.status;
+        }
+      });      
+      // Navigator.of(context, rootNavigator: true).pop('dialog');
+    });
+  }
+
   addTodo() {
     Navigator.pushNamed(context, '/add');
   }
@@ -66,7 +92,8 @@ class _HomeScreenState extends State<HomeScreen> {
         child: ListView(
           children: this.listTodo.map((todo) => WTodo(
             todo: todo,
-            remove: (id) => this.remove(id)
+            remove: (id) => this.remove(id),
+            edit: (todo) => this.edit(todo)
           )).toList()
         ),
         onRefresh: () {

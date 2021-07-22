@@ -6,10 +6,12 @@ import 'package:todo/models/todo.dart';
 class WTodo extends StatelessWidget {
   final TodoModel todo;
   final Function remove;
+  final Function edit;
 
   const WTodo({ 
     required this.todo,
-    required this.remove
+    required this.remove,
+    required this.edit
   });
 
   @override
@@ -78,7 +80,7 @@ class WTodo extends StatelessWidget {
                           style: ButtonStyle(
                             padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.all(4.0))
                           ),
-                          onPressed: () => this.remove(this.todo.id),
+                          onPressed: () => this.edit(this.todo),
                           child: Row(
                             children: [
                               const Icon(Icons.edit, color: Colors.grey, size: 20),

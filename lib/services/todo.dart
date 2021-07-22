@@ -16,7 +16,7 @@ class TodoService {
         id: item['id'], 
         title: item['title'], 
         image: item['image'],
-        status: 1,
+        status: item['status'],
         createdAt: item['created_at'],
       ));
     });
@@ -42,7 +42,7 @@ class TodoService {
     return TodoModel(
       id: data['id'], 
       title: data['title'], 
-      status: 1,
+      status: data['status'],
       image: data['image'],
       createdAt: data['created_at']
     );
@@ -54,5 +54,23 @@ class TodoService {
     final response = await http.delete(url);
     final data = response.data['data'];
     return data;
+  }
+
+  static Future<TodoModel> updateStatus(int id, String status) async {
+    String url = "/todo/update-status";
+    final http = Client().init();
+    final response = await http.put(url, data: {
+      "id": id,
+      "status": status
+    });
+
+    final data = response.data['data'];
+    return TodoModel(
+      id: data['id'], 
+      title: data['title'], 
+      status: int.parse(data['status']),
+      image: data['image'],
+      createdAt: data['created_at']
+    );
   }
 }

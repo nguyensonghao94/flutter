@@ -1,6 +1,6 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:todo/services/auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({ Key? key }) : super(key: key);
@@ -12,9 +12,11 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    Firebase.initializeApp();
+    FirebaseMessaging.instance.subscribeToTopic('all');
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print(message.notification?.body ?? "");
+    });
     AuthService().isLogined().then((isLogin) {
       if (isLogin) {
         Navigator.popAndPushNamed(context, '/home');
@@ -26,12 +28,9 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Splash Screen'),
-      ),
+    return Scaffold(      
       body: Center(
-        child: Text('Loadding...'),
+        child: Text('Loadding...', style: TextStyle(fontSize: 20)),
       )
     );
   }
