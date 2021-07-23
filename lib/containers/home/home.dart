@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   logout() async {
     await UserService().logout();
-    Navigator.pushNamed(context, "/login");
+    Navigator.popAndPushNamed(context, '/login');
   }
 
   remove(id) async {
@@ -76,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("TODO App"),
+        title: Text("TODO APP"),
         centerTitle: true,
         actions: <Widget>[
           Padding(

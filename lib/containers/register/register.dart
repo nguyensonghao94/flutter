@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo/constants/message.dart';
 import 'package:todo/helpers/dialog.dart';
 import 'package:todo/models/user.dart';
 import 'package:todo/services/auth.dart';
@@ -31,9 +32,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
         UserModel user = await UserService().register(_nameCtrl.text, _emailCtrl.text, _passwordCtrl.text);
         AuthService().saveToken(user.token);
         Navigator.popAndPushNamed(context, '/home');
-        alert(context, "Register successfully.");
+        toast(MESSAGE['REGISTER_SUCCESS'].toString());
       } catch (e) {        
-        alert(context, e.toString());
+        toast(e.toString());        
       }
 
       setState(() {
