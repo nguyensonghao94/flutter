@@ -53,95 +53,97 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(      
       backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 120, 20, 20),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 40),
-              child: Center(
-                child: FlutterLogo(
-                  size: 100,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 120, 20, 20),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 40),
+                child: Center(
+                  child: FlutterLogo(
+                    size: 100,
+                  ),
                 ),
               ),
-            ),
-            Form(
-              key: _loginForm,
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      controller: _emailCtrl,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Email'
-                      ),
-                      validator: (value) => isEmail("Email", value)
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      controller: _passwordCtrl,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Password'
-                      ),
-                      validator: (value) => validatePassword("Password", value),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Button(
-                      title: 'Sign in',
-                      isLoading: isCalling,
-                      onPress: this.submit
-                    )
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        TextButton(
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(Colors.blue.shade700)
-                          ),
-                          onPressed: this.loginFB,
-                          child: Row(
-                            children: [                        
-                              Container(
-                                margin: EdgeInsets.only(right: 6),
-                                child: Icon(Icons.facebook, color: Colors.white)
-                              ),
-                              Text("Login with Facebook", style: TextStyle(color: Colors.white, fontSize: 14))
-                            ]
-                          )
+              Form(
+                key: _loginForm,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        controller: _emailCtrl,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Email'
                         ),
-                        Container(
-                          margin: const EdgeInsets.only(left: 12),
-                          child: TextButton(                          
-                            onPressed: () => Navigator.pushNamed(context, '/register'),
-                            child: Text(
-                              "Create new account",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.blue,
-                                decoration: TextDecoration.underline
-                              ),
-                            ) 
+                        validator: (value) => isEmail("Email", value)
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        controller: _passwordCtrl,
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Password'
+                        ),
+                        validator: (value) => validatePassword("Password", value),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Button(
+                        title: 'Sign in',
+                        isLoading: isCalling,
+                        onPress: this.submit
+                      )
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          TextButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(Colors.blue.shade700)
+                            ),
+                            onPressed: this.loginFB,
+                            child: Row(
+                              children: [                        
+                                Container(
+                                  margin: EdgeInsets.only(right: 6),
+                                  child: Icon(Icons.facebook, color: Colors.white)
+                                ),
+                                Text("Login with Facebook", style: TextStyle(color: Colors.white, fontSize: 14))
+                              ]
+                            )
                           ),
-                        )
-                      ],
-                    )
-                  ),
-                ],
+                          Container(
+                            margin: const EdgeInsets.only(left: 12),
+                            child: TextButton(                          
+                              onPressed: () => Navigator.pushNamed(context, '/register'),
+                              child: Text(
+                                "Create new account",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                  decoration: TextDecoration.underline
+                                ),
+                              ) 
+                            ),
+                          )
+                        ],
+                      )
+                    ),
+                  ],
+                )
               )
-            )
-          ],
+            ],
+          ),
         ),
-      ),
+      )      
     );
   }
 }

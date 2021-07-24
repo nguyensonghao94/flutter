@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:todo/components/modalUpdateStatus/modalUpdateStatus.dart';
 import 'package:todo/components/todo/todo.dart';
 import 'package:todo/helpers/dialog.dart';
+import 'package:todo/helpers/ui.dart';
 import 'package:todo/models/todo.dart';
 import 'package:todo/services/todo.dart';
 import 'package:todo/services/user.dart';
+import 'package:todo/components/modalUpdateStatus/modalUpdateStatus.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({ Key? key }) : super(key: key);
@@ -19,11 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    TodoService.getList().then((value) {
-      setState(() {
-        this.listTodo = value;
-      });
-    });
+    this.renderListTodo();
   }
 
   logout() async {
@@ -34,37 +31,47 @@ class _HomeScreenState extends State<HomeScreen> {
   remove(id) async {
     try {
       await TodoService.remove(id.toString());
-      final listTodo = await TodoService.getList();
-      setState(() {
-        this.listTodo = listTodo;
-      });
+      this.renderListTodo();
     } catch (e) {
       alert(context, e.toString());
     }
+  }
+
+  renderListTodo() async {
+    showLoading();
+    try {
+      final listTodo = await TodoService.getList();
+      setState(() {
+        this.listTodo = listTodo;
+      });      
+    } catch(e) {
+      toast(e.toString());
+    }
+
+    hideLoading();
   }
 
   edit(todo) {
     showDialog<void>(
       context: context,    
       builder: (BuildContext context) {
-        return WModalUpdateStatusState(
+        return WModalUpdateStatus(
           todo: todo,
           update: this.updateStatus
         );
-      },
+      }
     );
   }
 
   updateStatus(id, status) async {
     Navigator.of(context).pop();
-    final TodoModel todo = await TodoService.updateStatus(id, status);
+    final TodoModel todo = await TodoService.updateStatus(id, status.toString());
     setState(() {
       this.listTodo.forEach((e) { 
         if (e.id == todo.id) {
           e.status = todo.status;
         }
-      });      
-      // Navigator.of(context, rootNavigator: true).pop('dialog');
+      });
     });
   }
 

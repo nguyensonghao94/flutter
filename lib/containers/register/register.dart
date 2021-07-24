@@ -51,81 +51,83 @@ class _RegisterScreenState extends State<RegisterScreen> {
         centerTitle: true,
       ),
       backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 60, 20, 20),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 40),
-              child: Center(
-                child: FlutterLogo(
-                  size: 100,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 60, 20, 20),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 40),
+                child: Center(
+                  child: FlutterLogo(
+                    size: 100,
+                  ),
                 ),
               ),
-            ),
-            Form(
-              key: _registerForm,
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      controller: _emailCtrl,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Email'
+              Form(
+                key: _registerForm,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        controller: _emailCtrl,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Email'
+                        ),
+                        validator: (value) => isEmail("Email", value)
                       ),
-                      validator: (value) => isEmail("Email", value)
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      controller: _nameCtrl,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Full name'
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        controller: _nameCtrl,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Full name'
+                        ),
+                        validator: (value) => isRequired("Full name", value)
                       ),
-                      validator: (value) => isRequired("Full name", value)
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      obscureText: true,
-                      controller: _passwordCtrl,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Password'
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        obscureText: true,
+                        controller: _passwordCtrl,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Password'
+                        ),
+                        validator: (value) => validatePassword("Password", value),
                       ),
-                      validator: (value) => validatePassword("Password", value),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Button(
-                      title: 'Sign up',
-                      isLoading: isCalling,
-                      onPress: () => this.submit()
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Button(
+                        title: 'Sign up',
+                        isLoading: isCalling,
+                        onPress: () => this.submit()
+                      )
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: Text(
+                          "Have an account. Sign in",
+                            style: TextStyle(
+                              color: Colors.blue,
+                              decoration: TextDecoration.underline
+                            ),
+                          ) 
+                      )
                     )
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextButton(
-                      onPressed: () => Navigator.pop(context),
-                      child: Text(
-                        "Have an account. Sign in",
-                          style: TextStyle(
-                            color: Colors.blue,
-                            decoration: TextDecoration.underline
-                          ),
-                        ) 
-                    )
-                  )
-                ],
+                  ],
+                )
               )
-            )
-          ],
+            ],
+          ),
         ),
       ),
     );
