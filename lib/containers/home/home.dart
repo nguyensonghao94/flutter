@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo/components/menu/menu.dart';
 import 'package:todo/components/todo/todo.dart';
 import 'package:todo/helpers/dialog.dart';
 import 'package:todo/helpers/ui.dart';
@@ -19,6 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
+    print("initState");
     super.initState();
     this.renderListTodo();
   }
@@ -119,6 +121,9 @@ class _HomeScreenState extends State<HomeScreen> {
         onPressed: () => this.addTodo(),
         tooltip: 'Add Todo',
         child: const Icon(Icons.add),
+      ),
+      drawer: Drawer(
+        child: WMenu()
       ),
     );
   }

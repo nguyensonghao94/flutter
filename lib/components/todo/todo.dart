@@ -94,7 +94,7 @@ class WTodo extends StatelessWidget {
               ],      
             )
           ],
-        )        
+        )
       ),
     );
   }

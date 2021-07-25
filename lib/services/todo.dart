@@ -1,8 +1,7 @@
 import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:todo/services/client.dart';
-
-import '../models/todo.dart';
+import 'package:todo/models/todo.dart';
 
 class TodoService {
   static Future<List<TodoModel>> getList() async {
